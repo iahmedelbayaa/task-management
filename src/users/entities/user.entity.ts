@@ -4,8 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Task } from 'src/tasks/entities/task.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -30,6 +32,9 @@ export class User {
     default: UserRole.USER,
   })
   role: UserRole;
+
+  @OneToMany(() => Task, (task) => task.user)
+  tasks: Task[];
 
   @CreateDateColumn()
   createdAt: Date;
