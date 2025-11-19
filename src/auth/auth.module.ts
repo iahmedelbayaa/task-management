@@ -19,9 +19,9 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         return {
           secret: configService.get<string>('JWT_SECRET') || 'default-secret',
           signOptions: {
-            expiresIn: expiresIn as any,
+            expiresIn,
           },
-        };
+        } as any;
       },
       inject: [ConfigService],
     }),
