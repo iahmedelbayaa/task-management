@@ -43,6 +43,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build application
+        run: pnpm run build
+
+      - name: Run database migrations
+        env:
+          NODE_ENV: test
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+          DB_NAME: task_management_test
+        run: pnpm run migration:run
+
       - name: Run linter
         run: pnpm run lint
 
@@ -60,9 +73,6 @@ jobs:
           JWT_SECRET: test-secret-key
           JWT_EXPIRES_IN: 1d
         run: pnpm run test:e2e
-
-      - name: Build application
-        run: pnpm run build
 
   docker:
     name: Build Docker Image
