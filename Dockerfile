@@ -35,11 +35,25 @@ RUN pnpm install --prod --frozen-lockfile
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
+# Copy database files for migrations
+COPY --from=builder /app/src/database ./src/database
+
 # Create logs directory
 RUN mkdir -p logs
+
+# Create startup script
+RUN echo '#!/bin/sh\n\
+echo "Running database migrations..."\n\
+npm run migration:run\n\
+if [ "$RUN_SEEDS" = "true" ]; then\n\
+  echo "Running database seeds..."\n\
+  npm run seed:run\n\
+fi\n\
+echo "Starting application..."\n\
+node dist/main' > start.sh && chmod +x start.sh
 
 # Expose port
 EXPOSE 3000
 
-# Start the application
-CMD ["node", "dist/main"]
+# Start the application with migrations
+CMD ["./start.sh"]
