@@ -37,7 +37,7 @@ describe('Tasks (e2e)', () => {
         password: 'Password123!',
       });
 
-    userToken = response.body.access_token;
+    userToken = response.body.access_token as string;
   }, 30000);
 
   afterAll(async () => {
@@ -66,7 +66,7 @@ describe('Tasks (e2e)', () => {
           expect(res.body).toHaveProperty('id');
           expect(res.body.title).toBe('Test Task');
           expect(res.body.status).toBe('todo');
-          taskId = res.body.id;
+          taskId = res.body.id as string;
         });
     });
 

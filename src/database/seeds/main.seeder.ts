@@ -28,5 +28,5 @@ export default class MainSeeder {
 
 // Run seeder if this file is executed directly
 if (require.main === module) {
-  MainSeeder.run();
+  void MainSeeder.run();
 }
