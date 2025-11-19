@@ -367,6 +367,7 @@ docker exec task-management-api npm run seed:run
 ### Sample Data
 
 The seeded database includes:
+
 - **4 Users**: 1 admin (admin@example.com) + 3 regular users
 - **8 Tasks**: Various statuses (todo/in_progress/done) assigned to different users
 - **Passwords**: All user passwords are "password123" (bcrypt hashed)
