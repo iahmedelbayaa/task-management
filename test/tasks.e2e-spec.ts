@@ -181,7 +181,7 @@ describe('Tasks (e2e)', () => {
         .get(`/tasks/${taskId}`)
         .set('Authorization', `Bearer ${userToken}`)
         .expect(200);
-      
+
       console.log('Task found before update:', getResponse.body);
 
       // Now update it

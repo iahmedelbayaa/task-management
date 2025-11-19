@@ -80,12 +80,10 @@ describe('Authentication (e2e)', () => {
     beforeEach(async () => {
       await TestSetup.teardownApp();
       // Create a test user for login tests
-      await request(app.getHttpServer())
-        .post('/users/register')
-        .send({
-          email: 'logintest@example.com',
-          password: 'Password123!',
-        });
+      await request(app.getHttpServer()).post('/users/register').send({
+        email: 'logintest@example.com',
+        password: 'Password123!',
+      });
     });
 
     afterEach(async () => {
