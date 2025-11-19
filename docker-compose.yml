@@ -37,6 +37,7 @@ services:
       DB_NAME: ${DB_NAME:-task_management}
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1d}
+      RUN_SEEDS: ${RUN_SEEDS:-false}
     depends_on:
       postgres:
         condition: service_healthy

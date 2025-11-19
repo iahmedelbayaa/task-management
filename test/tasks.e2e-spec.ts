@@ -38,14 +38,16 @@ describe('Tasks (e2e)', () => {
       });
 
     userToken = response.body.access_token;
-  });
+  }, 30000);
 
   afterAll(async () => {
     if (dataSource && dataSource.isInitialized) {
       await dataSource.dropDatabase();
       await dataSource.destroy();
     }
-    await app.close();
+    if (app) {
+      await app.close();
+    }
   });
 
   describe('/tasks (POST)', () => {
