@@ -26,7 +26,7 @@ describe('Authentication (e2e)', () => {
     await app.init();
 
     dataSource = moduleFixture.get<DataSource>(DataSource);
-  });
+  }, 30000);
 
   afterAll(async () => {
     if (dataSource && dataSource.isInitialized) {

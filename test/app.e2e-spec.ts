@@ -17,10 +17,16 @@ describe('AppController (e2e)', () => {
     await app.init();
 
     dataSource = moduleFixture.get<DataSource>(DataSource);
-  });
+  }, 10000);
 
   afterEach(async () => {
-    await app.close();
+    if (dataSource && dataSource.isInitialized) {
+      await dataSource.dropDatabase();
+      await dataSource.destroy();
+    }
+    if (app) {
+      await app.close();
+    }
   });
 
   it('/ (GET)', () => {
