@@ -1,98 +1,483 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Task Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A comprehensive RESTful API for task management with JWT authentication, role-based access control, and full CRUD operations built with NestJS, TypeScript, PostgreSQL, and TypeORM.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+### Core Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- ✅ **User Authentication** - JWT-based authentication with secure password hashing
+- ✅ **Task Management** - Full CRUD operations for tasks (Create, Read, Update, Delete)
+- ✅ **Role-Based Access Control** - Admin and User roles with different permissions
+- ✅ **Pagination & Filtering** - Support for paginated task lists with status filtering
+- ✅ **Input Validation** - Comprehensive validation using class-validator
+- ✅ **API Documentation** - Interactive Swagger/OpenAPI documentation
+- ✅ **Logging** - Winston-based logging for all actions and errors
+- ✅ **Docker Support** - Complete Docker and Docker Compose configuration
+- ✅ **Unit & Integration Tests** - Test coverage for authentication and tasks
 
-## Project setup
+### Technical Stack
 
-```bash
-$ pnpm install
-```
+- **Framework**: NestJS 11
+- **Language**: TypeScript
+- **Database**: PostgreSQL
+- **ORM**: TypeORM
+- **Authentication**: Passport JWT & Local Strategy
+- **Validation**: class-validator & class-transformer
+- **Documentation**: Swagger/OpenAPI
+- **Logging**: Winston
+- **Testing**: Jest & Supertest
+- **Containerization**: Docker & Docker Compose
 
-## Compile and run the project
+## Getting Started
 
-```bash
-# development
-$ pnpm run start
+### Prerequisites
 
-# watch mode
-$ pnpm run start:dev
+- Node.js 20+ (or Docker)
+- PostgreSQL 16+ (or use Docker Compose)
+- pnpm (recommended) or npm
 
-# production mode
-$ pnpm run start:prod
-```
+### Installation
 
-## Run tests
+1. **Clone the repository**
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+git clone <repository-url>
+cd task-management-test
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+2. **Install dependencies**
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+3. **Configure environment variables**
 
-## Resources
+```bash
+cp .env.example .env
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+Edit `.env` file with your configuration:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```env
+# Application
+NODE_ENV=development
+PORT=3000
 
-## Support
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_NAME=task_management
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# JWT
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_EXPIRES_IN=1d
+```
 
-## Stay in touch
+4. **Start PostgreSQL Database**
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+If you don't have PostgreSQL installed, you can use Docker:
+
+```bash
+docker run --name task-management-db \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=task_management \
+  -p 5432:5432 \
+  -d postgres:16-alpine
+```
+
+5. **Run the application**
+
+Development mode:
+
+```bash
+pnpm run start:dev
+```
+
+Production mode:
+
+```bash
+pnpm run build
+pnpm run start:prod
+```
+
+The API will be available at:
+
+- **API**: http://localhost:3000
+- **Swagger Documentation**: http://localhost:3000/api
+
+## Running with Docker
+
+### Using Docker Compose (Recommended)
+
+1. **Start all services**
+
+```bash
+docker-compose up -d
+```
+
+This will start both the PostgreSQL database and the application.
+
+2. **View logs**
+
+```bash
+docker-compose logs -f app
+```
+
+3. **Stop services**
+
+```bash
+docker-compose down
+```
+
+### Using Docker only
+
+1. **Build the image**
+
+```bash
+docker build -t task-management-api .
+```
+
+2. **Run the container**
+
+```bash
+docker run -p 3000:3000 \
+  -e DB_HOST=your-db-host \
+  -e DB_PORT=5432 \
+  -e DB_USERNAME=postgres \
+  -e DB_PASSWORD=postgres \
+  -e DB_NAME=task_management \
+  -e JWT_SECRET=your-secret \
+  task-management-api
+```
+
+## API Endpoints
+
+### Authentication
+
+#### Register a new user
+
+```http
+POST /users/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "Password123!"
+}
+```
+
+**Response:**
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "uuid",
+    "email": "user@example.com",
+    "role": "user",
+    "createdAt": "2025-11-18T10:00:00.000Z",
+    "updatedAt": "2025-11-18T10:00:00.000Z"
+  }
+}
+```
+
+#### Login
+
+```http
+POST /users/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "Password123!"
+}
+```
+
+**Response:** Same as register
+
+### Tasks (Protected Routes)
+
+All task endpoints require JWT authentication. Include the token in the Authorization header:
+
+```http
+Authorization: Bearer <your-jwt-token>
+```
+
+#### Create a task
+
+```http
+POST /tasks
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "Complete project documentation",
+  "description": "Write comprehensive API documentation",
+  "status": "todo",
+  "dueDate": "2025-12-31T23:59:59Z"
+}
+```
+
+#### Get all tasks (with pagination and filtering)
+
+```http
+GET /tasks?page=1&limit=10&status=todo
+Authorization: Bearer <token>
+```
+
+**Response:**
+
+```json
+{
+  "tasks": [...],
+  "total": 50,
+  "page": 1,
+  "limit": 10
+}
+```
+
+#### Get a specific task
+
+```http
+GET /tasks/:id
+Authorization: Bearer <token>
+```
+
+#### Update a task
+
+```http
+PATCH /tasks/:id
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "Updated title",
+  "status": "in_progress"
+}
+```
+
+#### Delete a task
+
+```http
+DELETE /tasks/:id
+Authorization: Bearer <token>
+```
+
+## Role-Based Access Control
+
+### User Roles
+
+- **Admin**: Can view and manage all users' tasks
+- **User**: Can only view and manage their own tasks
+
+### Permissions Matrix
+
+| Action                | Admin | User |
+| --------------------- | ----- | ---- |
+| View own tasks        | ✅    | ✅   |
+| View all users' tasks | ✅    | ❌   |
+| Create task           | ✅    | ✅   |
+| Update own task       | ✅    | ✅   |
+| Update other's task   | ✅    | ❌   |
+| Delete own task       | ✅    | ✅   |
+| Delete other's task   | ✅    | ❌   |
+
+## Testing
+
+### Run all tests
+
+```bash
+pnpm run test
+```
+
+### Run e2e tests
+
+```bash
+pnpm run test:e2e
+```
+
+### Run tests with coverage
+
+```bash
+pnpm run test:cov
+```
+
+### Test Files
+
+- `test/auth.e2e-spec.ts` - Authentication tests (register, login)
+- `test/tasks.e2e-spec.ts` - Task management tests (CRUD operations)
+
+## Swagger Documentation
+
+Interactive API documentation is available at:
+
+```
+http://localhost:3000/api
+```
+
+Features:
+
+- Complete API specification
+- Request/response examples
+- Try-it-out functionality
+- JWT authentication support
+
+## Logging
+
+The application uses Winston for logging:
+
+### Log Levels
+
+- **error**: Error events
+- **warn**: Warning events
+- **info**: Informational messages
+- **debug**: Debug messages
+
+### Log Files
+
+- `logs/error.log` - Error-level logs only
+- `logs/combined.log` - All logs
+
+### Logged Events
+
+- User registration
+- User login
+- Task creation
+- Task updates
+- Task deletion
+- Errors and exceptions
+
+## Project Structure
+
+```
+task-management-test/
+├── src/
+│   ├── auth/                    # Authentication module
+│   │   ├── decorators/          # Custom decorators (GetUser, Roles)
+│   │   ├── guards/              # Auth guards (JWT, Local, Roles)
+│   │   ├── strategies/          # Passport strategies
+│   │   ├── auth.controller.ts   # Auth endpoints
+│   │   ├── auth.service.ts      # Auth business logic
+│   │   └── auth.module.ts       # Auth module definition
+│   ├── users/                   # Users module
+│   │   ├── dto/                 # Data Transfer Objects
+│   │   ├── entities/            # User entity
+│   │   ├── users.controller.ts  # User endpoints
+│   │   ├── users.service.ts     # User business logic
+│   │   └── users.module.ts      # User module definition
+│   ├── tasks/                   # Tasks module
+│   │   ├── dto/                 # Data Transfer Objects
+│   │   ├── entities/            # Task entity
+│   │   ├── tasks.controller.ts  # Task endpoints
+│   │   ├── tasks.service.ts     # Task business logic
+│   │   └── tasks.module.ts      # Task module definition
+│   ├── config/                  # Configuration files
+│   │   └── logger.config.ts     # Winston logger configuration
+│   ├── app.module.ts            # Root module
+│   └── main.ts                  # Application entry point
+├── test/                        # Test files
+│   ├── auth.e2e-spec.ts        # Auth integration tests
+│   └── tasks.e2e-spec.ts       # Tasks integration tests
+├── logs/                        # Log files
+├── .env.example                 # Environment variables template
+├── docker-compose.yml           # Docker Compose configuration
+├── Dockerfile                   # Docker image configuration
+├── package.json                 # Dependencies and scripts
+└── README.md                    # This file
+```
+
+## Environment Variables
+
+| Variable       | Description             | Default         | Required |
+| -------------- | ----------------------- | --------------- | -------- |
+| NODE_ENV       | Application environment | development     | No       |
+| PORT           | Application port        | 3000            | No       |
+| DB_HOST        | PostgreSQL host         | localhost       | Yes      |
+| DB_PORT        | PostgreSQL port         | 5432            | Yes      |
+| DB_USERNAME    | Database username       | postgres        | Yes      |
+| DB_PASSWORD    | Database password       | -               | Yes      |
+| DB_NAME        | Database name           | task_management | Yes      |
+| JWT_SECRET     | JWT signing secret      | -               | Yes      |
+| JWT_EXPIRES_IN | JWT expiration time     | 1d              | No       |
+
+## Security Features
+
+- **Password Hashing**: bcrypt with salt rounds
+- **JWT Authentication**: Secure token-based authentication
+- **Input Validation**: Comprehensive validation on all inputs
+- **SQL Injection Protection**: TypeORM parameterized queries
+- **Role-Based Access**: Fine-grained permission control
+- **CORS**: Configurable cross-origin resource sharing
+
+## Error Handling
+
+The API returns standard HTTP status codes:
+
+- `200 OK` - Successful GET/PATCH requests
+- `201 Created` - Successful POST requests
+- `204 No Content` - Successful DELETE requests
+- `400 Bad Request` - Invalid input data
+- `401 Unauthorized` - Missing or invalid authentication
+- `403 Forbidden` - Insufficient permissions
+- `404 Not Found` - Resource not found
+- `409 Conflict` - Duplicate resource (e.g., email already exists)
+- `500 Internal Server Error` - Server errors
+
+Error responses include descriptive messages:
+
+```json
+{
+  "statusCode": 400,
+  "message": [
+    "email must be an email",
+    "password must be longer than or equal to 6 characters"
+  ],
+  "error": "Bad Request"
+}
+```
+
+## Performance Considerations
+
+- Database connection pooling
+- Indexed database queries
+- Pagination for large datasets
+- Efficient TypeORM queries with relations
+- Asynchronous operations
+
+## Future Enhancements
+
+- [ ] Task assignment to multiple users
+- [ ] Task categories and tags
+- [ ] Task priority levels
+- [ ] File attachments
+- [ ] Email notifications
+- [ ] Task comments
+- [ ] Activity history
+- [ ] Search functionality
+- [ ] Export tasks (CSV, PDF)
+- [ ] Task templates
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is [UNLICENSED](LICENSE).
+
+## Support
+
+For issues, questions, or contributions, please open an issue in the GitHub repository.
+
+---
+
+**Note**: Remember to change the `JWT_SECRET` in production and use strong, unique passwords for your database.
