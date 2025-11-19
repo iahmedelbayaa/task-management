@@ -34,6 +34,7 @@ import { UsersModule } from './users/users.module';
     TasksModule,
   ],
 
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

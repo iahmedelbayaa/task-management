@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { Task } from '../../tasks/entities/task.entity';
+import { Task } from 'src/tasks/entities/task.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
