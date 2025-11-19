@@ -1,4 +1,4 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { TestSetup } from './test-setup';
 
@@ -160,7 +160,7 @@ describe('Tasks (e2e)', () => {
     });
   });
 
-  describe('/tasks (PUT)', () => {
+  describe('/tasks (PATCH)', () => {
     it('should update a task', async () => {
       // First create a task to update
       const createResponse = await request(app.getHttpServer())
@@ -174,19 +174,10 @@ describe('Tasks (e2e)', () => {
         .expect(201);
 
       const taskId = createResponse.body.id;
-      console.log('Created task ID:', taskId);
-
-      // Verify task exists before update
-      const getResponse = await request(app.getHttpServer())
-        .get(`/tasks/${taskId}`)
-        .set('Authorization', `Bearer ${userToken}`)
-        .expect(200);
-
-      console.log('Task found before update:', getResponse.body);
 
       // Now update it
       const updateResponse = await request(app.getHttpServer())
-        .put(`/tasks/${taskId}`)
+        .patch(`/tasks/${taskId}`)
         .set('Authorization', `Bearer ${userToken}`)
         .send({
           title: 'Updated Task',
