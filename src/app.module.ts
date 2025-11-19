@@ -26,7 +26,7 @@ import { UsersModule } from './users/users.module';
         entities: [User, Task],
         migrations: ['dist/database/migrations/*.js'],
         synchronize: false,
-        migrationsRun: configService.get<string>('NODE_ENV') === 'development',
+        migrationsRun: false,
         logging: configService.get<string>('NODE_ENV') === 'development',
       }),
       inject: [ConfigService],
