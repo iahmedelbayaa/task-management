@@ -41,7 +41,10 @@ describe('Tasks (e2e)', () => {
   });
 
   afterAll(async () => {
-    await dataSource.dropDatabase();
+    if (dataSource && dataSource.isInitialized) {
+      await dataSource.dropDatabase();
+      await dataSource.destroy();
+    }
     await app.close();
   });
 
