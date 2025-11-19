@@ -1,42 +1,24 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
-import { AppModule } from '../src/app.module';
-import { DataSource } from 'typeorm';
+import { TestSetup } from './test-setup';
 
 describe('Authentication (e2e)', () => {
   let app: INestApplication;
-  let dataSource: DataSource;
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-
-    app.useGlobalPipes(
-      new ValidationPipe({
-        whitelist: true,
-        transform: true,
-        forbidNonWhitelisted: true,
-      }),
-    );
-
-    await app.init();
-
-    dataSource = moduleFixture.get<DataSource>(DataSource);
+    await TestSetup.setupApp();
+    app = TestSetup.app;
   }, 30000);
 
   afterAll(async () => {
-    if (dataSource && dataSource.isInitialized) {
-      await dataSource.dropDatabase();
-      await dataSource.destroy();
-    }
-    await app.close();
+    await TestSetup.closeApp();
   });
 
   describe('/users/register (POST)', () => {
+    afterEach(async () => {
+      await TestSetup.teardownApp();
+    });
+
     it('should register a new user', () => {
       return request(app.getHttpServer())
         .post('/users/register')
@@ -53,7 +35,17 @@ describe('Authentication (e2e)', () => {
         });
     });
 
-    it('should fail with duplicate email', () => {
+    it('should fail with duplicate email', async () => {
+      // First, create a user
+      await request(app.getHttpServer())
+        .post('/users/register')
+        .send({
+          email: 'test@example.com',
+          password: 'Password123!',
+        })
+        .expect(201);
+
+      // Then try to create the same user again
       return request(app.getHttpServer())
         .post('/users/register')
         .send({
@@ -85,18 +77,33 @@ describe('Authentication (e2e)', () => {
   });
 
   describe('/users/login (POST)', () => {
+    beforeEach(async () => {
+      await TestSetup.teardownApp();
+      // Create a test user for login tests
+      await request(app.getHttpServer())
+        .post('/users/register')
+        .send({
+          email: 'logintest@example.com',
+          password: 'Password123!',
+        });
+    });
+
+    afterEach(async () => {
+      await TestSetup.teardownApp();
+    });
+
     it('should login with valid credentials', () => {
       return request(app.getHttpServer())
         .post('/users/login')
         .send({
-          email: 'test@example.com',
+          email: 'logintest@example.com',
           password: 'Password123!',
         })
         .expect(200)
         .expect((res) => {
           expect(res.body).toHaveProperty('access_token');
           expect(res.body).toHaveProperty('user');
-          expect(res.body.user.email).toBe('test@example.com');
+          expect(res.body.user.email).toBe('logintest@example.com');
         });
     });
 
@@ -104,7 +111,7 @@ describe('Authentication (e2e)', () => {
       return request(app.getHttpServer())
         .post('/users/login')
         .send({
-          email: 'test@example.com',
+          email: 'logintest@example.com',
           password: 'WrongPassword',
         })
         .expect(401);
