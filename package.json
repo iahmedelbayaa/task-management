@@ -24,7 +24,10 @@
     "migration:run": "npm run typeorm -- migration:run -d src/database/data-source.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d src/database/data-source.ts",
     "seed:run": "ts-node src/database/seeds/main.seeder.ts",
-    "db:reset": "npm run migration:revert && npm run migration:run && npm run seed:run"
+    "db:reset": "npm run migration:revert && npm run migration:run && npm run seed:run",
+    "db:setup": "npm run migration:run && npm run seed:run",
+    "docker:dev": "docker-compose --env-file .env.dev up --build",
+    "docker:prod": "docker-compose up --build"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

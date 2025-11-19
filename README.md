@@ -52,6 +52,39 @@ cd task-management-test
 pnpm install
 ```
 
+3. **Database Setup**
+
+**Option A: Using Docker (Recommended)**
+
+```bash
+# Start with development environment and seeds
+pnpm run docker:dev
+
+# Or start production environment
+pnpm run docker:prod
+```
+
+**Option B: Local PostgreSQL**
+
+```bash
+# 1. Create PostgreSQL database
+createdb task_management
+
+# 2. Copy environment file
+cp .env.example .env
+
+# 3. Update database connection in .env file
+
+# 4. Run migrations and seeds
+pnpm run db:setup
+```
+
+4. **Start the application**
+
+```bash
+pnpm install
+```
+
 3. **Configure environment variables**
 
 ```bash
@@ -286,6 +319,57 @@ Authorization: Bearer <token>
 | Update other's task   | ✅    | ❌   |
 | Delete own task       | ✅    | ✅   |
 | Delete other's task   | ✅    | ❌   |
+
+## Database Management
+
+### Migrations
+
+```bash
+# Run pending migrations
+pnpm run migration:run
+
+# Generate new migration from entity changes
+pnpm run migration:generate
+
+# Create empty migration file
+pnpm run migration:create
+
+# Revert last migration
+pnpm run migration:revert
+```
+
+### Seeds
+
+```bash
+# Run all seeds
+pnpm run seed:run
+
+# Reset database (revert all migrations, run migrations, run seeds)
+pnpm run db:reset
+
+# Setup fresh database (migrations + seeds)
+pnpm run db:setup
+```
+
+### Docker Database Management
+
+```bash
+# Start with development environment and run seeds
+pnpm run docker:dev
+
+# Start production environment (no seeds)
+pnpm run docker:prod
+
+# Run seeds in running container (if RUN_SEEDS=false)
+docker exec task-management-api npm run seed:run
+```
+
+### Sample Data
+
+The seeded database includes:
+- **4 Users**: 1 admin (admin@example.com) + 3 regular users
+- **8 Tasks**: Various statuses (todo/in_progress/done) assigned to different users
+- **Passwords**: All user passwords are "password123" (bcrypt hashed)
 
 ## Testing
 
